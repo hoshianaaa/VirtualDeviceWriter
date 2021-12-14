@@ -3,11 +3,11 @@
 
 #include "../VirtualDeviceWriter.hpp"
 
-constexpr int DEVICE_ID_IN = 0;
+constexpr int DEVICE_ID_IN = 1;
 constexpr int WIDTH = 640;
 constexpr int HEIGHT = 480;
 
-constexpr int DEVICE_ID_OUT = 42;
+constexpr int DEVICE_ID_OUT = 34;
 
 class EventFrequency {
   private:
