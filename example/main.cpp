@@ -11,7 +11,6 @@ constexpr int DEVICE_ID_OUT = 34;
 
 int main (int argc, char* argv[])
 {
-  //cv::VideoCapture cap (DEVICE_ID_IN, cv::CAP_V4L);
   cv::VideoCapture cap (DEVICE_ID_IN);
   cap.set (cv::CAP_PROP_FRAME_WIDTH, WIDTH);
   cap.set (cv::CAP_PROP_FRAME_HEIGHT, HEIGHT);
@@ -22,21 +21,14 @@ int main (int argc, char* argv[])
   }
 
   cv::Mat frame;
-//  EventFrequency freq;
   VirtualDeviceWriter pub (DEVICE_ID_OUT, WIDTH, HEIGHT);
 
   while (cap.read (frame))
   {
-    //freq.event ();
-    //std::cout << freq.time () << std::endl;
 
     cv::imshow ("Web Camera", frame);
 
-    cv::Mat processed = frame;
-
-    //cv::cvtColor (frame, processed, CV_8S);
-    //pub.write (frame);
-    pub.write (processed);
+    pub.write (frame);
 
     const int key = cv::waitKey (1);
     if (key == 'q') {
