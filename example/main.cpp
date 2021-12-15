@@ -9,45 +9,6 @@ constexpr int HEIGHT = 480;
 
 constexpr int DEVICE_ID_OUT = 34;
 
-class EventFrequency {
-  private:
-    std::chrono::system_clock::time_point last_;
-    double frequency_;
-  public:
-    EventFrequency () = default;
-    void event () {
-      frequency_ = std::chrono::duration_cast<std::chrono::milliseconds>(
-          std::chrono::system_clock::now () - last_).count ();
-      last_ = std::chrono::system_clock::now ();
-    }
-    float time () {
-      return frequency_;
-    }
-};
-
-std::string type2str(int type) {
-  std::string r;
-
-  uchar depth = type & CV_MAT_DEPTH_MASK;
-  uchar chans = 1 + (type >> CV_CN_SHIFT);
-
-  switch ( depth ) {
-    case CV_8U:  r = "8U"; break;
-    case CV_8S:  r = "8S"; break;
-    case CV_16U: r = "16U"; break;
-    case CV_16S: r = "16S"; break;
-    case CV_32S: r = "32S"; break;
-    case CV_32F: r = "32F"; break;
-    case CV_64F: r = "64F"; break;
-    default:     r = "User"; break;
-  }
-
-  r += "C";
-  r += (chans+'0');
-
-  return r;
-}
-
 int main (int argc, char* argv[])
 {
   //cv::VideoCapture cap (DEVICE_ID_IN, cv::CAP_V4L);
@@ -61,12 +22,12 @@ int main (int argc, char* argv[])
   }
 
   cv::Mat frame;
-  EventFrequency freq;
+//  EventFrequency freq;
   VirtualDeviceWriter pub (DEVICE_ID_OUT, WIDTH, HEIGHT);
 
   while (cap.read (frame))
   {
-    freq.event ();
+    //freq.event ();
     //std::cout << freq.time () << std::endl;
 
     cv::imshow ("Web Camera", frame);
